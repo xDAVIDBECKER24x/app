@@ -1,0 +1,49 @@
+<%@ include file="templates/header.jspf"%>
+<%@ include file="templates/navigation.jspf"%>
+
+<div class="container">
+ <div>
+  <a type="button" class="btn btn-primary btn-md" href="/add-cliente">Add Cliente</a>
+ </div>
+ <br>
+ <div class="panel panel-primary">
+  <div class="panel-heading">
+   <h3>Lista de Clientes</h3>
+  </div>
+  <div class="panel-body">
+   <table class="table table-striped">
+    <thead>
+     <tr>
+      <th width="10%">Cliente</th>
+      <th width="20%">Email</th>
+      <th width="10%">CEP</th>
+      <th width="20%">Endereço</th>
+      <th width="10%">Bairro</th>
+      <th width="10%">Complemento</th>
+      <th width="10%">Cidade</th>
+      <th width="5%"></th>
+     </tr>
+    </thead>
+    <tbody>
+     <c:forEach items="${clientes}" var="cliente">
+      <tr>
+        <td>${cliente.cliente}</td>
+        <td>${cliente.email}</td>
+        <td>${cliente.cep}</td>
+        <td>${cliente.endereco}</td>
+        <td>${cliente.bairro}</td>
+        <td>${cliente.complemento}</td>
+        <td>${cliente.cidade}</td>
+       <td><a type="button" class="btn btn-success"
+        href="/update-cliente?id=${cliente.id}">Update</a>
+       <a type="button" class="btn btn-warning"
+        href="/delete-cliente?id=${cliente.id}">Delete</a></td>
+      </tr>
+     </c:forEach>
+    </tbody>
+   </table>
+  </div>
+ </div>
+
+</div>
+<%@ include file="templates/footer.jspf"%>
