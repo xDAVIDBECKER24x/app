@@ -50,6 +50,9 @@ public class Cliente {
     @OneToMany(mappedBy="telefone")
     private List<Telefone> telefones = new ArrayList<Telefone>();
 	
+    public Cliente() {
+        super();
+    }
 
     public Cliente(String cliente, String email, String cep, String endereco, String bairro, String complemento, String cidade, List<Telefone> telefones) {
         
