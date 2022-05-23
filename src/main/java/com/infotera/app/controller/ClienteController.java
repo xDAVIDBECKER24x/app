@@ -1,5 +1,7 @@
 package com.infotera.app.controller;
 
+import java.util.Optional;
+
 import com.infotera.app.model.Cliente;
 import com.infotera.app.service.IClienteService;
 
@@ -39,7 +41,7 @@ public class ClienteController {
 
     @RequestMapping(value = "/update-clientes", method = RequestMethod.GET)
     public String showUpdateClientePage(@RequestParam Integer id, ModelMap model) {
-        Cliente cliente = clienteService.getClienteById(id);
+        Optional<Cliente> cliente = clienteService.getClienteById(id);
         model.put("cliente", cliente);
         return "cliente";
     }
@@ -48,7 +50,7 @@ public class ClienteController {
     public String updateTodo(ModelMap model, @Validated   Cliente cliente, BindingResult result) {
 
         if (result.hasErrors()) {
-            return "todo";
+            return "cliente";
         }
 
         clienteService.updateCliente(cliente);
