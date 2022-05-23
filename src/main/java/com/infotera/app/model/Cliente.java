@@ -1,15 +1,13 @@
 package com.infotera.app.model;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.lang.model.element.Element;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -48,13 +46,14 @@ public class Cliente {
 
 
     @OneToMany(mappedBy="telefone")
-    private List<Telefone> telefones = new ArrayList<Telefone>();
+    @JoinColumn(name="cliente_id")
+    private Set<Telefone> telefones;
 	
     public Cliente() {
         super();
     }
 
-    public Cliente(String cliente, String email, String cep, String endereco, String bairro, String complemento, String cidade, List<Telefone> telefones) {
+    public Cliente(String cliente, String email, String cep, String endereco, String bairro, String complemento, String cidade, Set<Telefone> telefones) {
         
         this.cliente = cliente;
         this.email = email;
@@ -116,14 +115,12 @@ public class Cliente {
         this.cidade = cidade;
     }
 
-    public List<Telefone> getTelefones() {
+    public Set<Telefone> getTelefones() {
         return telefones;
     }
 
-    public void setTelefones(List<Telefone> telefones) {
-        (Telefone element : ArrayList){
-            element= Telefone
-        }
+    public void setTelefones(Set<Telefone> telefones) {
+        this.telefones = telefones;
         
     }
 

@@ -1,8 +1,10 @@
 package com.infotera.app.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.infotera.app.model.Cliente;
 import com.infotera.app.model.Telefone;
@@ -19,8 +21,8 @@ public class ClienteService implements IClienteService {
     private ClienteRepository clienteRepository;
 
     @Override
-    public List < Cliente > getClientes() {
-        return clienteRepository.getAll();
+    public ArrayList < Cliente > getAllClientes() {
+        return (ArrayList<Cliente>) clienteRepository.findAll();
     }
 
     @Override
@@ -29,12 +31,12 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public void updateCliente(Cliente todo) {
+    public void updateCliente(Cliente cliente) {
         clienteRepository.save(cliente);
     }
 
     @Override
-    public void addCliente(String cliente, String email, String cep, String endereco, String bairro, String complemento, String cidade, List<Telefone> telefones) {
+    public void addCliente(String cliente, String email, String cep, String endereco, String bairro, String complemento, String cidade, Set<Telefone> telefones) {
         clienteRepository.save(new Cliente(cliente, email, cep, endereco, bairro, complemento, cidade, telefones ));
     }
 
