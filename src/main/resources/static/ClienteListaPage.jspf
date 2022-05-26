@@ -1,0 +1,101 @@
+<%@ include file="templates/header.jspf"%>
+<%@ include file="templates/navigation.jspf"%>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<div class="container">
+  <h:form id="clientes">
+    <p:growl id="growl" sticky="true" />
+    <p:dataTable id="clienteList" var="cliente" value="#{ClienteController.clientes}">
+        <p:column headerText="Id">
+          <h:outputText value="#{cliente.id}"/>
+        </p:column>
+  
+        <p:column headerText="Cliente">
+          <p:inputText id="nome" value="#{cliente.cliente}"/>
+        </p:column>
+  
+        <p:column headerText="Email">
+          <p:inputText id="email" value="#{cliente.email}"/>
+        </p:column>
+  
+        <p:column headerText="Cep">
+          <p:inputText id="cep" value="#{cliente.cep}"/>
+        </p:column>
+  
+        <p:column headerText="Endereço">
+            <h:outputText id="endereco" value="#{customer.endereco}">
+        </p:column>
+
+        <p:column headerText="Bairro">
+            <h:outputText id="bairro" value="#{cliente.bairro}">
+        </p:column>
+
+          <p:column headerText="Cidade">
+            <h:outputText id="cidade" value="#{cliente.cidade}">
+        </p:column>
+
+        <p:column headerText="Telefone">
+            <h:outputText id="telefone" value="#{cliente.telefone}">
+        </p:column>
+
+          <p:column>
+            <p:commandButton update="clienteList" value="Delete" icon="ui-icon-closethick"
+                          action="#{ClienteController.deleteCliente(cliente)}"
+                          styleClass="ui-priority-primary">
+            </p:commandButton>
+          </p:column>
+      </p:dataTable>
+      <br/>
+      <p:commandButton style="float: right" id="save" value="Save" tyleClass="ui-priority-primary"
+                  action="#{ClienteController.updateCliente}" icon="ui-icon-disk" update="growl">
+          <f:ajax execute="@form" render="@form"/>
+      </p:commandButton>
+  </h:form>
+</div>
+<div class="container">
+    <h:form id="add">
+        <h:panelGrid columns="3" cellpadding="5" style="margin: 0 auto;">
+            <p:outputLabel for="nome" value="Cliente" />
+            <p:inputText id="nome" value="#{ClienteController.cliente.cliente}" />
+            <p:message for="nome" />
+
+            <p:outputLabel for="email" value="Email" />
+            <p:inputText id="email" value="#{ClienteController.cliente.email}">
+            </p:inputText>
+            <p:message for="email" />
+
+            <p:outputLabel for="cep" value="CEP" />
+            <p:inputText id="cep" value="#{ClienteController.cliente.cep}">
+            </p:inputText>
+            <p:message for="cep" />
+
+            <p:outputLabel for="endereco" value="Endereço" />
+            <p:inputText id="endereco" value="#{ClienteController.cliente.endereco}">
+            </p:inputText>
+            <p:message for="endereco" />
+
+            <p:outputLabel for="complemento" value="Complemento" />
+            <p:inputText id="complemento" value="#{ClienteController.cliente.complemento}">
+            </p:inputText>
+            <p:message for="complemento" />
+
+            <p:outputLabel for="cidade" value="Cidade" />
+            <p:inputText id="cidade" value="#{ClienteController.cliente.cidade}">
+            </p:inputText>
+            <p:message for="cidade" />
+
+            <p:outputLabel for="telefones" value="Telefones" />
+            <p:inputText id="telefones" value="#{ClienteController.cliente.telefones}">
+            </p:inputText>
+            <p:message for="telefones" />
+
+            <p:commandButton update="@form :clientes:clienteList" value="Add" action="#{ClienteContrller.addCliente}">
+            </p:commandButton>
+        </h:panelGrid>
+    </h:form>
+</div>
+
+<%@ include file="templates/footer.jspf"%>
