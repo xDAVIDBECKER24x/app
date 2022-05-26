@@ -50,7 +50,7 @@
       </p:dataTable>
       <br/>
       <p:commandButton style="float: right" id="save" value="Save" tyleClass="ui-priority-primary"
-                  action="#{ClienteService.update}" icon="ui-icon-disk" update="growl">
+                  action="#{ClienteController.updateCliente}" icon="ui-icon-disk" update="growl">
           <f:ajax execute="@form" render="@form"/>
       </p:commandButton>
   </h:form>
@@ -92,7 +92,7 @@
             </p:inputText>
             <p:message for="telefones" />
 
-            <p:commandButton update="@form :clientes:clienteList" value="Add" action="#{customersBacking.add}">
+            <p:commandButton update="@form :clientes:clienteList" value="Add" action="#{ClienteContrller.addCliente}">
             </p:commandButton>
         </h:panelGrid>
     </h:form>
