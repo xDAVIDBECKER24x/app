@@ -32,7 +32,7 @@ public class Cliente {
     @Column(name = "nr_cep")
     private String cep;
     
-    @Column(name = "nm_cliente")
+    @Column(name = "nm_endereco")
     private String endereco;
     
     @Column(name = "nm_bairro")

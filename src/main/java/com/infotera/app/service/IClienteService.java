@@ -4,9 +4,6 @@ import com.infotera.app.model.Cliente;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Set;
-
-import com.infotera.app.model.Telefone;
 
 
 public interface IClienteService {
@@ -17,9 +14,9 @@ public interface IClienteService {
 
     void updateCliente(Cliente cliente);
 
-    void addCliente(String cliente, String email, String cep, String endereco, String bairro, String complemento, String cidade, Set<Telefone> telefones);
+    void addCliente(Cliente cliente);
 
-    void deleteCliente(Integer id);
+    void deleteCliente(Cliente cliente);
 
     void saveCliente(Cliente cliente);
 }

@@ -2,7 +2,15 @@ package com.infotera.app.controller;
 
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import com.infotera.app.model.Cliente;
+import com.infotera.app.repository.ClienteRepository;
 import com.infotera.app.service.IClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,58 +21,37 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.util.List;
 
-
-@Controller
+@Named
+@ViewScoped
 public class ClienteController {
 
-    @Autowired
+    @Inject
     private IClienteService clienteService;
 
-    @RequestMapping(value = "/list-clientes", method = RequestMethod.GET)
-    public String showClientes(ModelMap model) {
-        model.put("clientes", clienteService.getAllClientes());
-        return "list-clientes";
+    private List<Cliente> clientes;
+ 
+    private Cliente cliente = new Cliente();
+
+    @PostConstruct
+    public void init() {
+        this.clientes = clienteService.getAllClientes();
     }
 
-    @RequestMapping(value = "/add-cliente", method = RequestMethod.GET)
-    public String showAddClientesPage(ModelMap model) {
-        model.addAttribute("cliente", new Cliente());
-        return "cliente";
+    public String deleteCliente(Cliente cliente) {
+        clienteService.deleteCliente(cliente);
+        clientes.remove(cliente);
     }
-
-    @RequestMapping(value = "/delete-clientes", method = RequestMethod.GET)
-    public String deleteCliente(@RequestParam Integer id) {
-        clienteService.deleteCliente(id);
-        return "redirect:/list-clientes";
-    }
-
-    @RequestMapping(value = "/update-clientes", method = RequestMethod.GET)
-    public String showUpdateClientePage(@RequestParam Integer id, ModelMap model) {
-        Optional<Cliente> cliente = clienteService.getClienteById(id);
-        model.put("cliente", cliente);
-        return "cliente";
-    }
-
-    @RequestMapping(value = "/update-clientes", method = RequestMethod.POST)
-    public String updateTodo(ModelMap model, @Validated   Cliente cliente, BindingResult result) {
-
-        if (result.hasErrors()) {
-            return "cliente";
-        }
-
+    
+    public void updateCliente() {
         clienteService.updateCliente(cliente);
-        return "redirect:/list-clientes";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Update successful"));
     }
 
-    @RequestMapping(value = "/add-cliente", method = RequestMethod.POST)
-    public String addCliente(ModelMap model, @Validated Cliente cliente, BindingResult result) {
-
-        if (result.hasErrors()) {
-            return "cliente";
-        }
-
-        clienteService.saveCliente(cliente);
-        return "redirect:/list-clientes";
+    public void addCliente() {
+        clienteService.addCliente(cliente);
+        this.clientes = clienteService.getAllClientes();
+        this.cliente = new Cliente();
     }
 }

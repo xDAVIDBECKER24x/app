@@ -1,21 +1,17 @@
 package com.infotera.app.service;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import com.infotera.app.model.Cliente;
-import com.infotera.app.model.Telefone;
 import com.infotera.app.repository.ClienteRepository;
-import com.infotera.app.service.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class ClienteService implements IClienteService {
+
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -36,15 +32,15 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public void addCliente(String cliente, String email, String cep, String endereco, String bairro, String complemento, String cidade, Set<Telefone> telefones) {
-        clienteRepository.save(new Cliente(cliente, email, cep, endereco, bairro, complemento, cidade, telefones ));
+    public void addCliente(Cliente cliente) {
+        clienteRepository.save(cliente);
     }
 
     @Override
-    public void deleteCliente(Integer id) {
-        Optional < Cliente > cliente = clienteRepository.findById(id);
-        if (cliente.isPresent()) {
-            clienteRepository.delete(cliente.get());
+    public void deleteCliente(Cliente cliente) {
+        Optional<Cliente> cliente_id = clienteRepository.findById(cliente.getId());
+        if (cliente_id.isPresent()) {
+            clienteRepository.delete(cliente);
         }
     }
 
